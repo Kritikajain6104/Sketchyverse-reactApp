@@ -108,9 +108,17 @@ export const createRoughElement = (
       const brushElement = {
         id,
         points: [{ x: x1, y: y1 }],
-        path: new Path2D(getSvgPathFromStroke(getStroke([{ x: x1, y: y1 }]))),
+        path: new Path2D(
+          getSvgPathFromStroke(
+            getStroke([{ x: x1, y: y1 }], {
+              simulatePressure: false,
+              size: size,
+            })
+          )
+        ),
         type,
         strokecolor,
+        size: size,
       };
       return brushElement;
     }

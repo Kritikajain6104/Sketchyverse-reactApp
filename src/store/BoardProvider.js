@@ -21,6 +21,7 @@ const boardReducer = (state, action) => {
       };
     case BOARD_ACTIONS.DRAW_DOWN: {
       const { clientX, clientY, strokecolor, fillcolor, size } = action.payload;
+      console.log(size);
       const tool_item = state.activeToolItem;
       const id = state.elements.length + 1;
       if (tool_item === TOOL_ITEMS.ERASER) {
@@ -79,19 +80,27 @@ const boardReducer = (state, action) => {
             ...state,
             elements: newElements,
           };
-        case TOOL_ITEMS.BRUSH:
+        case TOOL_ITEMS.BRUSH: {
+          const { size } = newElements[index];
+          console.log(size);
           newElements[index].points = [
             ...newElements[index].points,
             { x: clientX, y: clientY },
           ];
           newElements[index].path = new Path2D(
-            getSvgPathFromStroke(getStroke(newElements[index].points))
+            getSvgPathFromStroke(
+              getStroke(newElements[index].points, {
+                simulatePressure: false,
+                size: size,
+              })
+            )
           );
 
           return {
             ...state,
             elements: newElements,
           };
+        }
         default:
           throw new Error("Type not recognized");
       }

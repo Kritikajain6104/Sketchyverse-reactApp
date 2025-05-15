@@ -29,6 +29,7 @@ const toolBoxreducer = (state, action) => {
 const initialToolBoxState = {
   [TOOL_ITEMS.BRUSH]: {
     stroke: COLORS.BLACK,
+    size: 6,
   },
   [TOOL_ITEMS.LINE]: {
     stroke: COLORS.BLACK,
